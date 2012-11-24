@@ -36,7 +36,7 @@ admin.site.register(Category, CategoryAdmin)
 
 class NewsAdmin(admin.ModelAdmin):
 	prepopulated_fields = {"slug": ("title",)}
-	list_display = ("title", "category", "user", "created_at", "published", "comments_enabled")
+	list_display = ("title", "category", "user", "created_at", "published", "comments_enabled", "views")
 	search_fields = ["body", "title", "category"]
 	ordering = ("-created_at",)
 	list_filter = ("created_at", "updated_at", "published", "comments_enabled")

@@ -25,7 +25,7 @@
 # $END_LICENSE$
 ############################################################################
 
-from django.db import models
+from django.db import models, transaction
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
@@ -55,6 +55,7 @@ class News(models.Model):
 	body = models.TextField()
 	published = models.BooleanField(default=False)
 	comments_enabled = models.BooleanField(default=True)
+	views = models.IntegerField(default=0)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
@@ -66,6 +67,12 @@ class News(models.Model):
 
 	def get_absolute_url(self):
 		return reverse("news_details", kwargs={"slug": self.slug})
+
+	@transaction.commit_manually
+	def update_views_counter(self):
+		self.views += 1
+		self.save()
+		transation.commit()
 
 	class Meta:
 		verbose_name = _("News")

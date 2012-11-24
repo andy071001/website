@@ -25,6 +25,7 @@
 # $END_LICENSE$
 ############################################################################
 
+from django.db import transaction
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
@@ -72,11 +73,19 @@ def listing_tags(request, tag, page=None):
 		 "words": NUMBER_TRUNCATE_WORDS},
 		context_instance=RequestContext(request))
 
+@transaction.commit_on_success
 def news_details(request, slug=None):
-	news = get_object_or_404(News, slug=slug)
-
-	if not news.published:
+	try:
+		news = News.pubs_objects.get(slug=slug)
+	except News.DoesNotExist:
 		raise Http404
+
+	# Update the views counter
+	try:
+		news.views += 1
+		news.save()
+	except:
+		pass
 
 	return render_to_response("news_detail.html",
 		{"news": news},
