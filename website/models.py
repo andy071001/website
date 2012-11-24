@@ -50,6 +50,15 @@ class UserProfile(models.Model):
 	def __unicode__(self):
 		return _("User profile for %s") % self.user.get_full_name()
 
+	def save(self, *args, **kwargs):
+		# Every user is a subscriber, whether he's active or not depends
+		# on the user being active and the 'receive_updates' field
+		from propaganda.models import Subscriber
+		subscriber, created = Subscriber.objects.get_or_create(email=self.user.email)
+		subscriber.active = self.user.is_active and self.receive_updates
+		subscriber.save()
+		super(UserProfile, self).save(*args, **kwargs)
+
 def user_registered_callback(sender, user, request, **kwargs):
 	UserProfile.objects.get_or_create(user=user)
 user_registered.connect(user_registered_callback)
