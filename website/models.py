@@ -48,7 +48,7 @@ class UserProfile(models.Model):
 		order_with_respect_to = "user"
 
 	def __unicode__(self):
-		return _("User profile for %s") % self.user.get_full_name()
+		return _("User profile for %s") % self.user.username
 
 	def save(self, *args, **kwargs):
 		# Every user is a subscriber, whether he's active or not depends
