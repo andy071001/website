@@ -8,8 +8,10 @@
 		<meta name="description" content="{% page_attribute "meta_description" %}">
 		<title>{% block page_title %}{% page_attribute "page_title" %}{% endblock %}</title>
 
+		<meta property="og:type" content="{% block opengraph_type %}product{% endblock %}">
 		<meta property="og:image" content="{{ STATIC_URL }}img/logos/m.png">
 		<meta property="og:description" content="{% block page_description %}{% trans "Maui is a Linux-based desktop operating system using Qt, QtQuick and Wayland aiming at ease of use and out of the box experience." %}{% endblock %}">
+		<meta property="og:site_name" content="Maui">
 
 		<link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico">
 
