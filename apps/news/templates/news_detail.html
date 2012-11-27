@@ -1,6 +1,9 @@
 {% extends "news_base.html" %}
 {% load menu_tags i18n %}
 
+{% block schemaorg_type %}http://schema.org/Article{% endblock %}
+{% block opengraph_type %}article{% endblock %}
+
 {% block page_title %}{{ news.title }}{% endblock %}
 
 {% block title %}
