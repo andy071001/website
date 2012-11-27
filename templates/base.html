@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load cms_tags sekizai_tags menu_tags i18n googleanalytics %}
-<html lang="en" dir="ltr" itemscope itemtype="http://schema.org/Product">
+<html lang="en" dir="ltr" itemscope itemtype="{% block schemaorg_type %}http://schema.org/Product{% endblock %}">
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,13 +8,8 @@
 		<meta name="description" content="{% page_attribute "meta_description" %}">
 		<title>{% block page_title %}{% page_attribute "page_title" %}{% endblock %}</title>
 
-		<meta itemprop="name" content="Maui">
-		<meta itemprop="description" content="{% trans "Maui is a Linux-based desktop operating system using Qt, QtQuick and Wayland aiming at ease of use and out of the box experience." %}">
-		<meta itemprop="image" content="{{ STATIC_URL }}img/logos/m.png">
-
-		<meta property="og:title" content="Maui">
 		<meta property="og:image" content="{{ STATIC_URL }}img/logos/m.png">
-		<meta property="og:description" content="{% trans "Maui is a Linux-based desktop operating system using Qt, QtQuick and Wayland aiming at ease of use and out of the box experience." %}">
+		<meta property="og:description" content="{% block page_description %}{% trans "Maui is a Linux-based desktop operating system using Qt, QtQuick and Wayland aiming at ease of use and out of the box experience." %}{% endblock %}">
 
 		<link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico">
 
