@@ -10,3 +10,4 @@ django-taggit
 django-propaganda
 Markdown
 cmsplugin-markdown
+django_compressor

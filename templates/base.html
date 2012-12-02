@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load cms_tags sekizai_tags menu_tags i18n macros %}
+{% load compress cms_tags sekizai_tags menu_tags i18n macros %}
 {% macro title %}{% block page_title %}{% page_attribute "page_title" %}{% endblock %}{% endmacro %}
 <html lang="en" dir="ltr" itemscope itemtype="{% block schemaorg_type %}http://schema.org/Product{% endblock %}">
 	<head>
@@ -18,34 +18,37 @@
 		<link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico">
 
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:400,700|Droid+Sans+Mono" type="text/css">
-		<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css" type="text/css">
-		<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" type="text/css">
-		<link rel="stylesheet" href="{{ STATIC_URL }}css/font-awesome.css" type="text/css">
-		<!--[if lt IE 8]>
-			<link rel="stylesheet" href="{{ STATIC_URL }}css/font-awesome-ie7.css" type="text/css">
-		<![endif]-->
-		<link rel="stylesheet" href="{{ STATIC_URL }}css/maui.layout.css" type="text/css">
-		<link rel="stylesheet" href="{{ STATIC_URL }}css/maui.styles.css" type="text/css">
-		<link rel="stylesheet" href="{{ STATIC_URL }}css/maui.bootstrap.css" type="text/css">
-		<link rel="stylesheet" href="{{ STATIC_URL }}css/maui.share.css" type="text/css">
-		{% block extra_css %}{% endblock %}
+		{% compress css %}
+			<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css" type="text/css">
+			<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" type="text/css">
+			<link rel="stylesheet" href="{{ STATIC_URL }}css/font-awesome.css" type="text/css">
+			<!--[if lt IE 8]>
+				<link rel="stylesheet" href="{{ STATIC_URL }}css/font-awesome-ie7.css" type="text/css">
+			<![endif]-->
+			<link rel="stylesheet" href="{{ STATIC_URL }}css/maui.layout.css" type="text/css">
+			<link rel="stylesheet" href="{{ STATIC_URL }}css/maui.styles.css" type="text/css">
+			<link rel="stylesheet" href="{{ STATIC_URL }}css/maui.bootstrap.css" type="text/css">
+			<link rel="stylesheet" href="{{ STATIC_URL }}css/maui.share.css" type="text/css">
+			{% block extra_css %}{% endblock %}
+		{% endcompress %}
 
-		<script src="{{ STATIC_URL }}js/jquery-1.8.1.min.js"></script>
-		<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-		{% block extra_js %}{% endblock %}
-		<!--[if lt IE 9]>
-			<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
+		{% compress js %}
+			<script src="{{ STATIC_URL }}js/jquery-1.8.1.min.js"></script>
+			<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+			{% block extra_js %}{% endblock %}
+			<!--[if lt IE 9]>
+				<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+			<![endif]-->
 
-		<script type="text/javascript">
-			$(function() {
-				$("[rel='tooltip']").tooltip();
-				$("ul.nav-tabs li a").attr("data-toggle", "tab");
-			});
-		</script>
+			<script type="text/javascript">
+				$(function() {
+					$("[rel='tooltip']").tooltip();
+					$("ul.nav-tabs li a").attr("data-toggle", "tab");
+				});
+			</script>
+		{% endcompress %}
 
 		{% block extra_head %}{% endblock %}
-
 		{% render_block "css" %}
 
 		<script type="text/javascript">
@@ -141,7 +144,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="https://plus.google.com/106410682256187719404/" target="_blank" title="{% trans "Follow us on Google+" %}">
+							<a href="https://plus.google.com/106410682256187719404/" rel="publisher" target="_blank" title="{% trans "Follow us on Google+" %}">
 								<h1><i class="icon-google-plus"></i></h1>
 							</a>
 						</li>

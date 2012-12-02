@@ -71,6 +71,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
@@ -157,6 +158,8 @@ INSTALLED_APPS = (
     'taggit',
     # Django Propaganda:
     'propaganda',
+    # CSS and JS compressor:
+    'compressor',
     # Django CMS plugins:
     'cms.plugins.file',
     'cms.plugins.googlemap',
