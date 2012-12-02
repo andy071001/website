@@ -153,8 +153,6 @@ INSTALLED_APPS = (
     'tinymce',
     # Versioning for Django CMS contents:
     'reversion',
-    # Google Analytics support:
-    'google_analytics',
     # Django Taggit:
     'taggit',
     # Django Propaganda:

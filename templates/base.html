@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load cms_tags sekizai_tags menu_tags i18n googleanalytics macros %}
+{% load cms_tags sekizai_tags menu_tags i18n macros %}
 {% macro title %}{% block page_title %}{% page_attribute "page_title" %}{% endblock %}{% endmacro %}
 <html lang="en" dir="ltr" itemscope itemtype="{% block schemaorg_type %}http://schema.org/Product{% endblock %}">
 	<head>
@@ -47,6 +47,18 @@
 		{% block extra_head %}{% endblock %}
 
 		{% render_block "css" %}
+
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-33602199-1']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		</script>
 	</head>
 	<body id="{% block body_id %}body{% endblock %}">
 		<div id="fb-root"></div>
@@ -139,7 +151,8 @@
 			</div>
 		</footer>
 
-		{% google_analytics %}
+		{% render_block "js" %}
+		{% block final_js %}{% endblock %}
 
 		<script type="text/javascript">
 		  var GoSquared = {};
@@ -158,8 +171,5 @@
 		      w.attachEvent("onload", gs);
 		  })(window);
 		</script>
-
-		{% render_block "js" %}
-		{% block final_js %}{% endblock %}
 	</body>
 </html>
