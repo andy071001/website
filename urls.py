@@ -31,11 +31,12 @@ from cms.sitemaps import CMSSitemap
 from django.contrib import admin
 admin.autodiscover()
 
-from website.views import HomeView, PreviewView, ProfileView, EditProfileView
+from website.views import HomeView, PreviewView, DiscoverView, ProfileView, EditProfileView
 
 urlpatterns = patterns('',
     url(r'^$', HomeView.as_view(), name="home_page"),
     url(r'^preview/$', PreviewView.as_view(), name="preview_page"),
+    url(r'^discover/$', DiscoverView.as_view(), name="discover"),
     url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', {
         'sitemaps': {
             'cmspages': CMSSitemap

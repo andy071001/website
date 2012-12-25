@@ -47,6 +47,9 @@ class HomeView(TemplateView):
 class PreviewView(TemplateView):
 	template_name = "pages/preview.html"
 
+class DiscoverView(TemplateView):
+	template_name = "pages/discover.html"
+
 class ProfileView(ProtectedView):
 	template_name = "registration/profile.html"
 
