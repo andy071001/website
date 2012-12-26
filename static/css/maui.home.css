@@ -24,14 +24,30 @@
 .page-header {
 	margin: 0px !important;
 	padding-top: 2.5em;
-	overflow: hidden;
 	background-color: #d0d0d0;
 	background-image: url(../img/patterns/solid.png);
+	background-image: -webkit-image-set(url(../img/patterns/solid.png) 1x,
+					url(../img/patterns/solid_@2X.png) 2x);
+	background-image: -moz-image-set(url(../img/patterns/solid.png) 1x,
+					url(../img/patterns/solid_@2X.png) 2x);
+	background-image: -o-image-set(url(../img/patterns/solid.png) 1x,
+					url(../img/patterns/solid_@2X.png) 2x);
+	background-image: -ms-image-set(url(../img/patterns/solid.png) 1x,
+					url(../img/patterns/solid_@2X.png) 2x);
 	box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.25) inset, 0 1px 3px rgba(0, 0, 0, 0.25) inset;
 	-moz-box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.25) inset, 0 1px 3px rgba(0, 0, 0, 0.25) inset;
 	-webkit-box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.25) inset, 0 1px 3px rgba(0, 0, 0, 0.25) inset;
 	text-shadow: 1px 1px 1px white;
 }
+
+/*
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+       only screen and (min-resolution: 144dpi) {
+	.page-header h4 {
+		font-size: 50%;
+	}
+}
+*/
 
 /* Margins between carousel control and contents */
 .carousel-contents {
