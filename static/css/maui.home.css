@@ -35,8 +35,8 @@
 
 /* Margins between carousel control and contents */
 .carousel-contents {
-	margin-left: 80px;
-	margin-right: 80px;
+	margin-left: 80px !important;
+	margin-right: 80px !important;
 }
 
 /*
