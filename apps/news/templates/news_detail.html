@@ -8,17 +8,17 @@
 {% block page_description %}{{ news.title }}{% endblock %}
 
 {% block title %}
-	<h2>{{ news.title }}</h2>
-	<span class="muted">{% blocktrans with author=news.user.get_full_name submitted_on=news.created_at|date:"DATETIME_FORMAT" %}Submitted by {{ author }} on {{ submitted_on }}{% endblocktrans %}</span>
-{% endblock %}
-
-{% block main %}
 	<ul class="breadcrumb">
 		{% block breadcrumb %}
 			{% show_breadcrumb 0 "breadcrumb.html" %}
 		{% endblock %}
 	</ul>
 
+	<h2>{{ news.title }}</h2>
+	<span class="muted">{% blocktrans with author=news.user.get_full_name submitted_on=news.created_at|date:"DATETIME_FORMAT" %}Submitted by {{ author }} on {{ submitted_on }}{% endblocktrans %}</span>
+{% endblock %}
+
+{% block main %}
 	<p>
 		{{ news.body|safe|urlizetrunc:20 }}
 	</p>

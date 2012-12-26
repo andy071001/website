@@ -1,0 +1,17 @@
+/*
+ * News styles.
+ *
+ * Copyright (C) 2012 Pier Luigi Fiorini
+ *
+ */
+
+.news-item {
+	padding-bottom: 1em;
+	margin-bottom: 1.2em;
+	border-bottom: 1px solid #eee;
+}
+
+.news-item .title {
+	margin: 0 0 5px 0;
+	line-height: 1;
+}

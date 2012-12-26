@@ -5,6 +5,10 @@
 
 {% block title %}<h1>{% trans "News" %} <small>{% trans "News & Updates" %}</small></h1>{% endblock %}
 
+{% block extra_css %}
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/maui.news.css" type="text/css">
+{% endblock %}
+
 {% block main %}
 	{% if tag %}
 		<div class="alert alert-info">{% blocktrans %}Below you can read the news with the &quot;{{ tag }}&quot; tag.{% endblocktrans %}</div>
@@ -12,55 +16,43 @@
 
 	{% if news.paginator.count %}
 		{% for news_obj in news.object_list %}
-			<div class="blog-list-detail">
-				<h4>{{ news_obj.title }}</h4>
-				<span class="label">{{ news_obj.category.name }}</span>
-				<span class="muted">{{ news_obj.created_at|naturaltime }}, {{ news_obj.user.get_full_name }}</span>
+			<div class="news-item">
+				<h4 class="title"><a href="{{ news_obj.get_absolute_url }}">{{ news_obj.title }}</a></h4>
 
-				<p>
-					{{ news_obj.body|safe|truncatewords:words }}
-				</p>
+				{{ news_obj.body|safe|truncatewords:words }}
 
-				<div>
-					{% get_comment_count for news_obj as comment_count %}
-					<a class="btn btn-primary" style="margin-right: 1em" href="{{ news_obj.get_absolute_url }}">{% trans "Read More" %}</a>
-					<em class="muted">{% blocktrans %}{{ comment_count }} comments{% endblocktrans %}</em>
-					{% if tag %}
-						<p class="tags">
-							{% for curtag in news_obj.tags.all %}
-								<a href="{% url news_tags tag=curtag.name %}"><span class="label label-info tag-weight-1">{{ curtag.name }}</span></a>
-							{% endfor %}
-						</p>
-					{% endif %}
-				</div>
+				<ul class="inline muted" style="font-size: 80%;">
+					<li><i class="icon-calendar"></i> <span class="visible-desktop">{% trans "Created:" %}</span> {{ news_obj.created_at|naturaltime }}</li>
+					<li><i class="icon-user"></i> <span class="visible-desktop">{% trans "By:" %}</span> {{ news_obj.user.get_full_name }}</li>
+					<li><i class="icon-tags"></i> <span class="visible-desktop">{% trans "Tags:" %}</span>
+						{% for curtag in news_obj.tags.all %}
+							<a href="{% url news_tags tag=curtag.name %}">{{ curtag.name }}</a>
+						{% endfor %}
+					</li>
+				</ul>
+
+				{% get_comment_count for news_obj as comment_count %}
+				<ul class="inline">
+					<li><a href="{{ news_obj.get_absolute_url }}" class="btn btn-mini"><i class="icon-circle-arrow-right"></i> {% trans "Read More" %}</a></li>
+					<li><a href="" class="btn btn-mini"><i class="icon-comment"></i> {% blocktrans %}{{ comment_count }} Comments{% endblocktrans %}</a></li>
+				</ul>
 			</div>
 		{% endfor %}
-		<div class="pagination">
-		    <span class="step-links">
-		        {% if news.has_previous %}
-		        	<span class="paginator-left">
-		            	<a href="{% url list_news page=news.previous_page_number %}">&lt;&lt; {% trans "newer" %}</a>
-		            </span>
-		        {% endif %}
-				
+
+		<div class="pagination pagination-centered">
+			<ul>
+				<li{% if not news.has_previous %} class="disabled"{% endif %}><a href="{% url list_news page=news.previous_page_number %}">&laquo;</a></li>
 				{% if news.has_other_pages %}
-		        	{% for number in news.paginator.page_range %}
-		        		{% ifequal number news.number %}
-		        		<span class="current-page">{{ number }}</span>
-		        		{% else %}
-		        		<span class="no-current-page">
-		        			<a href="{% url list_news page=number %}">{{ number }}</a>
-				        </span>
-		        		{% endifequal %}
-		        	{% endfor %}
+					{% for number in news.paginator.page_range %}
+						{% ifequal number news.number %}
+							<li class="active"><a href="{% url list_news page=number %}">{{ number }}</a></li>
+						{% else %}
+							<li><a href="{% url list_news page=number %}">{{ number }}</a></li>
+						{% endifequal %}
+					{% endfor %}
 				{% endif %}
-		
-		        {% if news.has_next %}
-		        	<span class="paginator-right">
-		            	<a href="{% url list_news page=news.next_page_number %}">{% trans "older" %} &gt;&gt;</a>
-		            </span>
-		        {% endif %}
-		    </span>
+				<li{% if not news.has_next %} class="disabled"{% endif %}><a href="{% url list_news page=news.next_page_number %}">&raquo;</a></li>
+			</ul>
 		</div>
 	{% else %}
 		<p class="info">{% trans "No news published so far." %}</p>

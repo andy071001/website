@@ -96,3 +96,22 @@ footer .social a:hover {
 	margin-right: 8px;
 	margin-left: -6px;
 }
+
+/*
+ * Inline lists
+ */
+
+ul.inline, ol.inline {
+	margin-left: 0;
+	list-style: none;
+}
+
+ul.inline > li:first-child {
+	padding-left: 0;
+}
+
+ul.inline > li, ol.inline > li {
+	display: inline-block;
+	padding-left: 5px;
+	padiding-right: 5px;
+}
