@@ -35,17 +35,6 @@ footer .social a:hover {
 
 /* Custom styles */
 
-#header .brand {
-	float: left;
-	display: block;
-	padding: 0px 20px 12px;
-	margin-left: -20px;
-	font-size: 20px;
-	font-weight: 200;
-	line-height: 1;
-	color: #999999;
-}
-
 .content {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
