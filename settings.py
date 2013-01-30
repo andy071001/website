@@ -112,6 +112,7 @@ MIDDLEWARE_CLASSES = (
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'mauiwebsite.urls'
@@ -140,6 +141,8 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.sitemaps',
     'django.contrib.markup',
+    # Django Debug Toolbar:
+    'debug_toolbar',
     # Gravatar support:
     'gravatar',
     # Registration:

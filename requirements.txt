@@ -1,6 +1,7 @@
 Django==1.4.1
 pil
 south
+django-debug-toolbar
 django-cms
 django-tinymce
 django-reversion
