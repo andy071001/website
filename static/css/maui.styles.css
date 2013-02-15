@@ -127,3 +127,12 @@ ul.inline > li, ol.inline > li {
 	padding-left: 5px;
 	padiding-right: 5px;
 }
+
+/*
+ * Other styles
+ */
+
+/* Force GPU to kick in when doing animations */
+.animated {
+	-webkit-transform: translateZ(0);
+}
