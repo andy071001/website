@@ -19,9 +19,32 @@ footer {
 	padding-top: 1em;
 }
 
+footer .columns {
+	padding: 2em 0 0 10%;
+}
+
+footer .columns .block {
+	float: left;
+	width: 22.5%;
+	margin: 0 0 0 2.5%;
+}
+
+footer .columns .first, * html footer .columns .first {
+	clear: both;
+	margin: 0;
+}
+
 footer a {
 	color: white;
 	text-decoration: none;
+}
+
+footer .social {
+	list-style: none;
+}
+
+footer .social li {
+	display: inline-block;
 }
 
 footer .social a {
