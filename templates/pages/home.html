@@ -22,7 +22,7 @@
 					<div class="carousel-inner">
 						<div class="item carousel-contents active">
 							<div class="row-fluid">
-								<div class="span7">
+								<div class="span6">
 									<h4>{% trans "Easy life, just like relaxing under a palm tree" %}</h4>
 									<p>
 										{% blocktrans %}
@@ -31,27 +31,26 @@
 										{% endblocktrans %}
 									</p>
 
-									<a href="http://www.youtube.com/user/mauidesktop" target="_blank"
-									   class="btn btn-primary btn-block" title="{% trans "Check out our YouTube channel for new videos" %}">
-										<i class="icon-facetime-video"></i> {% trans "Watch our videos" %}
-									</a><br>
-									<a href="{% url registration_register %}" class="btn btn-primary btn-block"
-									   title="{% trans "Register in order to get notified when Maui TP1 comes out" %}">
-										<i class="icon-thumbs-up"></i> {% trans "Stay in Touch..." %}
-									</a>
+									<div class="btn-group">
+										<a href="http://www.youtube.com/user/mauidesktop" target="_blank"
+										   class="btn btn-primary" title="{% trans "Check out our YouTube channel for new videos" %}">
+											<i class="icon-facetime-video"></i> {% trans "Watch our videos" %}
+										</a>
+										<a href="{% url registration_register %}" class="btn btn-primary"
+										   title="{% trans "Register in order to get notified when Maui TP1 comes out" %}">
+											<i class="icon-thumbs-up"></i> {% trans "Stay in Touch..." %}
+										</a>
+									</div>
 								</div>
-								<div class="span5">
-									<img src="{{ STATIC_URL }}img/carousel/desktop-mini.png">
+								<div class="span6">
+									<img src="{{ STATIC_URL }}img/carousel/desktop-mini.png" width="429" height="268">
 								</div>
 							</div>
 						</div>
 
 						<div class="item carousel-contents">
 							<div class="row-fluid">
-								<div class="span7">
-									<img src="{{ STATIC_URL }}img/carousel/login-manager-mini.png">
-								</div>
-								<div class="span5">
+								<div class="span6">
 									<h4>{% trans "Fast and lightweight OS based on Free Software" %}</h4>
 									<p>
 										{% blocktrans %}
@@ -60,14 +59,19 @@
 										{% endblocktrans %}
 									</p>
 
-									<a href="http://www.youtube.com/user/mauidesktop" target="_blank"
-									   class="btn btn-primary btn-block" title="{% trans "Check out our YouTube channel for new videos" %}">
-										<i class="icon-facetime-video"></i> {% trans "Watch our videos" %}
-									</a><br>
-									<a href="{% url registration_register %}" class="btn btn-primary btn-block"
-									   title="{% trans "Register in order to get notified when Maui TP1 comes out" %}">
-										<i class="icon-thumbs-up"></i> {% trans "Stay in Touch..." %}
-									</a>
+									<div class="btn-group">
+										<a href="http://www.youtube.com/user/mauidesktop" target="_blank"
+										   class="btn btn-primary" title="{% trans "Check out our YouTube channel for new videos" %}">
+											<i class="icon-facetime-video"></i> {% trans "Watch our videos" %}
+										</a>
+										<a href="{% url registration_register %}" class="btn btn-primary"
+										   title="{% trans "Register in order to get notified when Maui TP1 comes out" %}">
+											<i class="icon-thumbs-up"></i> {% trans "Stay in Touch..." %}
+										</a>
+									</div>
+								</div>
+								<div class="span6">
+									<img src="{{ STATIC_URL }}img/carousel/login-manager-mini.png" width="429" height="268">
 								</div>
 							</div>
 						</div>
