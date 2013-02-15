@@ -4,9 +4,80 @@
 
 {% block meta_title %}{% blocktrans with name=request.user.username %}{{ name }}'s profile{% endblocktrans %}{% endblock %}
 
+{% block extra_css %}
+	<link href="{{ STATIC_URL }}css/bootstrap-editable.css" rel="stylesheet">
+	<link href="{{ STATIC_URL }}css/bootstrapSwitch.css" rel="stylesheet">
+{% endblock %}
 {% block extra_js %}
+	<script src="{{ STATIC_URL }}js/moment.min.js"></script>
+	<script src="{{ STATIC_URL }}js/bootstrap-editable.js"></script>
+	<script src="{{ STATIC_URL }}js/bootstrapSwitch.js"></script>
 	<script type="text/javascript">
+		function getCookie(name) {
+			var cookieValue = null;
+
+			if (document.cookie && document.cookie != "") {
+				var cookies = document.cookie.split(";");
+				for (var i = 0; i < cookies.length; i++) {
+					var cookie = jQuery.trim(cookies[i]);
+
+					// Does this cookie string begin with the name we want?
+					if (cookie.substring(0, name.length + 1) == (name + "=")) {
+						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+						break;
+					}
+				}
+			}
+
+			return cookieValue;
+		}
+
+		function csrfSafeMethod(method) {
+			// These HTTP methods do not require CSRF protection
+			return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		}
+
 		$(function() {
+			var csrftoken = getCookie("csrftoken");
+
+			$.ajaxSetup({
+				crossDomain: false, // obviates need for sameOrigin test
+				beforeSend: function(xhr, settings) {
+					if (!csrfSafeMethod(settings.type)) {
+						xhr.setRequestHeader("X-CSRFToken", csrftoken);
+					}
+				}
+			});
+
+			$.fn.editable.defaults.mode = "inline";
+
+			$(".editable").editable({
+				pk: "{{ request.user.pk }}",
+				url: "{% url auth_edit_profile %}"
+			});
+
+			$("#receive_updates_switch").on("switch-change", function(e, d) {
+				$("form .control-group").removeClass("error");
+				$("form .control-group .editable-error-block").remove();
+
+				var data = {
+					pk: "{{ request.user.pk }}",
+					name: "receive_updates",
+					value: d.value
+				};
+
+				$.ajax({
+					type: "POST",
+					url: "{% url auth_edit_profile %}",
+					data: data,
+					dataType: "text"
+				}).fail(function(xhr, textStatus, errorThrown) {
+					$("form .control-group").addClass("error");
+					$("form .control-group").append(
+						'<div class="editable-error-block help-block" style="display: block;">'
+							+ xhr.responseText + '</div>');
+				});
+			});
 		});
 	</script>
 {% endblock %}
@@ -16,11 +87,6 @@
 {% endblock %}
 
 {% block content %}
-	{% if edit_mode %}
-	<form action="." method="post">
-		{% csrf_token %}
-	{% endif %}
-
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span10">
@@ -37,65 +103,25 @@
 						<tr>
 							<th>{% trans "First Name" %}</th>
 							<td>
-								{% if edit_mode %}
-									<div class="control-group{% if form.first_name.errors %} error{% endif %}">
-										<div class="controls">
-											{{ form.first_name }}
-											{% if form.first_name.errors %}<span class="help-inline">{{ form.first_name.errors }}</span>{% endif %}
-										</div>
-									</div>
-								{% else %}
-									{{ request.user.first_name }}
-								{% endif %}
+								<a href="#" class="editable editable-click" id="first_name" data-type="text" data-original-title="{% trans "Enter first name" %}">{{ request.user.first_name }}</a>
 							</td>
 						</tr>
 						<tr>
 							<th>{% trans "Last Name" %}</th>
 							<td>
-								{% if edit_mode %}
-									<div class="control-group{% if form.last_name.errors %} error{% endif %}">
-										<div class="controls">
-											{{ form.last_name }}
-											{% if form.last_name.errors %}<span class="help-inline">{{ form.last_name.errors }}</span>{% endif %}
-										</div>
-									</div>
-								{% else %}
-									{{ request.user.last_name }}
-								{% endif %}
+								<a href="#" class="editable editable-click" id="last_name" data-type="text" data-original-title="{% trans "Enter last name" %}">{{ request.user.last_name }}</a>
 							</td>
 						</tr>
 						<tr>
 							<th>{% trans "Date of Birth" %}</th>
 							<td>
-								{% if edit_mode %}
-									<div class="control-group{% if form.date_of_birth.errors %} error{% endif %}">
-										<div class="controls">
-											{{ form.date_of_birth }}
-											{% if form.date_of_birth.errors %}<span class="help-inline">{{ form.date_of_birth.errors }}</span>{% endif %}
-										</div>
-									</div>
-								{% else %}
-									{{ request.user.get_profile.date_of_birth|date:"SHORT_DATE_FORMAT" }}
-								{% endif %}
+								<a href="#" class="editable editable-click" id="date_of_birth" data-type="date" data-viewformat="mm/dd/yyyy" data-original-title="{% trans "Select date of birth" %}">{{ request.user.get_profile.date_of_birth|date:"m/d/Y" }}</a>
 							</td>
 						</tr>
 						<tr>
 							<th>{% trans "Gender" %}</th>
 							<td>
-								{% if edit_mode %}
-									<div class="control-group{% if form.gender.errors %} error{% endif %}">
-										<div class="controls">
-											<select name="gender">
-												<option value="">{% trans "Select a gender" %}</option>
-												<option value="M" {% ifequal form.gender.value "M" %}selected{% endifequal %}>{% trans "Male" %}</option>
-												<option value="F" {% ifequal form.gender.value "F" %}selected{% endifequal %}>{% trans "Female" %}</option>
-											</select>
-											{% if form.gender.errors %}<span class="help-inline">{{ form.gender.errors }}</span>{% endif %}
-										</div>
-									</div>
-								{% else %}
-									{{ request.user.get_profile.get_gender_display }}
-								{% endif %}
+								<a href="#" class="editable editable-click" id="gender" data-type="select" data-value="{{ request.user.get_profile.gender }}" data-source="[{value: '', text: '{% trans "not selected" %}'}, {value: 'M', text: '{% trans "Male" %}'}, {value: 'F', text: '{% trans "Female" %}'}]" data-original-title="{% trans "Select gender" %}">{{ request.user.get_profile.get_gender_display }}</a>
 							</td>
 						</tr>
 						<tr>
@@ -108,17 +134,16 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								{% if edit_mode %}
-									<label class="checkbox">
-										{{ form.receive_updates }} {% trans "Receive updates from this Web site" %}
-									</label>
-								{% else %}
-									{% if request.user.get_profile.receive_updates %}
-										<span class="badge badge-success"><i class="icon-ok"></i></span>&nbsp;{% trans "You are receiving updates from this Web site" %}
-									{% else %}
-										<span class="badge badge-important"><i class="icon-remove"></i></span>&nbsp;{% trans "You are not receiving updates from this Web site" %}
-									{% endif %}
-								{% endif %}
+								<form class="form-inline">
+									<div class="control-group">
+										<div id="receive_updates_switch" class="switch switch-small"
+										     data-on-label="<i class='icon-ok icon-white'></i>"
+										     data-off-label="<i class='icon-remove'></i>">
+											<input type="checkbox" {% if request.user.get_profile.receive_updates %}checked="checked"{% endif %}>
+										</div>
+										<label for="receive_updates_switch">{% trans "Receive updates from this Web site" %}</label>
+									</div>
+								</form>
 							</td>
 						</tr>
 					</tbody>
@@ -136,18 +161,5 @@
 				</div>
 			</div>
 		</div>
-
-		{% if edit_mode %}
-			<a href="{% url auth_profile %}" rel="tooltip" class="btn"
-			   title="{% trans "Get back to the profile page" %}">{% trans "&larr; Back" %}</a>
-
-			<button type="submit" id="saveButton" rel="tooltip" class="btn btn-success"
-			   title="{% trans "Save changes to your profile" %}">{% trans "Save Changes" %}</button>
-		{% else %}
-			<a href="{% url auth_edit_profile %}" rel="tooltip" class="btn btn-primary"
-			   title="{% trans "Edit your profile" %}">{% trans "Edit Profile" %}</a>
-		{% endif %}
 	</div>
-
-	{% if edit_mode %}</form>{% endif %}
 {% endblock %}
