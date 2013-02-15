@@ -2,7 +2,6 @@
 {% load cms_tags i18n %}
 
 {% block extra_css %}
-	<link rel="stylesheet" href="{{ STATIC_URL }}css/animate.css" type="text/css">
 	<link rel="stylesheet" href="{{ STATIC_URL }}css/maui.home.css" type="text/css">
 {% endblock %}
 
@@ -21,9 +20,9 @@
 			<div class="container">
 				<div id="carousel" class="carousel slide">
 					<div class="carousel-inner">
-						<div class="item carousel-contents slidetextimg active">
+						<div class="item carousel-contents active">
 							<div class="row-fluid">
-								<div class="span7 animated fadeInDownBig">
+								<div class="span7">
 									<h4>{% trans "Easy life, just like relaxing under a palm tree" %}</h4>
 									<p>
 										{% blocktrans %}
@@ -47,12 +46,12 @@
 							</div>
 						</div>
 
-						<div class="item carousel-contents slideimgtext">
+						<div class="item carousel-contents">
 							<div class="row-fluid">
 								<div class="span7">
 									<img src="{{ STATIC_URL }}img/carousel/login-manager-mini.png">
 								</div>
-								<div class="span5 animated fadeInDownBig">
+								<div class="span5">
 									<h4>{% trans "Fast and lightweight OS based on Free Software" %}</h4>
 									<p>
 										{% blocktrans %}
