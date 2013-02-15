@@ -17,6 +17,9 @@
 
 		<link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico">
 
+		<link rel="alternate" type="application/rss+xml" title="{% trans "News" %}" href="/feeds/latest.rss">
+		<link rel="alternate" type="application/atom+xml" title="{% trans "News" %}" href="/feeds/latest.atom">
+
 		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:400,700|Droid+Sans+Mono" type="text/css">
 		{% compress css %}
 			<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css" type="text/css">

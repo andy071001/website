@@ -220,6 +220,13 @@ AUTH_PROFILE_MODULE = 'website.UserProfile'
 # Enable Google Analytics.
 GOOGLE_ANALYTICS_MODEL = True
 
+# How many item in the news feeds
+FEED_COUNT = 20
+
+# News feeds title and description
+FEED_TITLE = 'Maui'
+FEED_DESCRIPTION = 'Latest updates about the Maui project'
+
 # Enable soft-roots.
 CMS_SOFTROOT = True
 

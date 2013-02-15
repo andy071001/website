@@ -32,8 +32,9 @@ from django.contrib import admin
 admin.autodiscover()
 
 from website.views import HomeView, PreviewView, DiscoverView, ProfileView, EditProfileView
+from apps.news.feeds import RssLatestNewsFeed, AtomLatestNewsFeed
 
-urlpatterns = patterns('',
+urlpatterns = patterns("",
     url(r'^$', HomeView.as_view(), name="home_page"),
     url(r'^preview/$', PreviewView.as_view(), name="preview_page"),
     url(r'^discover/$', DiscoverView.as_view(), name="discover"),
@@ -42,6 +43,8 @@ urlpatterns = patterns('',
             'cmspages': CMSSitemap
         }
     }),
+    url(r'^feeds/latest.rss/$', RssLatestNewsFeed()),
+    url(r'^feeds/latest.atom/$', AtomLatestNewsFeed()),
     url(r'^accounts/profile/edit/$', EditProfileView.as_view(), name="auth_edit_profile"),
     url(r'^accounts/profile/$', ProfileView.as_view(), name="auth_profile"),
     url(r'^accounts/', include('website.registrationbackend.urls')),
